@@ -4,7 +4,7 @@ from flask import render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 import os
 
-UPLOAD_FOLDER = "app/img/temp"
+UPLOAD_FOLDER = "."
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
