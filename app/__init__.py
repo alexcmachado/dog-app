@@ -2,4 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from app import inference, routes, classes
+from app import routes, classes

@@ -1,8 +1,10 @@
 from app import app
-from app.inference import run_app
 from flask import render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 import os
+import requests
+import base64
+from app.classes import CLASS_NAMES
 
 UPLOAD_FOLDER = "."
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
@@ -31,8 +33,20 @@ def index():
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             file.save(filepath)
-            result = run_app(filepath)
+
+            with open(filepath, "rb") as image_source:
+                image_bytes = image_source.read()
+
+            data = base64.b85encode(image_bytes).decode("utf-8")
+
+            url = "https://ohld3opc0h.execute-api.us-east-1.amazonaws.com/prod"
+
+            response = requests.post(
+                url, data=data, headers={"Content-Type": "application/octet-stream"}
+            )
+
             os.remove(filepath)
-            return result
+
+            return CLASS_NAMES[response.json()]
 
     return render_template("index.html")
