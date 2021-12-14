@@ -5,6 +5,7 @@ import os
 import requests
 import base64
 from app.classes import CLASS_NAMES
+import timeit
 
 UPLOAD_FOLDER = "."
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
@@ -41,12 +42,16 @@ def index():
 
             url = "https://ohld3opc0h.execute-api.us-east-1.amazonaws.com/prod"
 
+            start = timeit.default_timer()
+
             response = requests.post(
                 url, data=data, headers={"Content-Type": "application/octet-stream"}
             )
+            end = timeit.default_timer()
+            total = start - end
 
             os.remove(filepath)
 
-            return CLASS_NAMES[response.json()]
+            return f"{CLASS_NAMES[response.json()]} {total}"
 
     return render_template("index.html")
