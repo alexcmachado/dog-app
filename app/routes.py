@@ -48,7 +48,7 @@ def index():
                 url, data=data, headers={"Content-Type": "application/octet-stream"}
             )
             end = timeit.default_timer()
-            total = start - end
+            total = end - start
 
             os.remove(filepath)
 
