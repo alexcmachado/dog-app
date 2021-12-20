@@ -27,9 +27,9 @@ def index():
         if file and allowed_file(file.filename):
             image_bytes = file.read()
 
-            data = base64.b85encode(image_bytes).decode("utf-8")
+            data = base64.b64encode(image_bytes).decode("utf-8")
 
-            url = "https://bqq3c79eae.execute-api.us-east-1.amazonaws.com/predict"
+            url = "https://4ftpjydttb.execute-api.us-east-1.amazonaws.com/predict"
 
             response = requests.post(url, data=data)
 
@@ -37,6 +37,6 @@ def index():
 
             breed = CLASS_NAMES[idx]
 
-            return render_template("result.html", idx=idx, breed=breed)
+            return render_template("result.html", idx=idx, breed=breed, data=data)
 
     return render_template("index.html")
