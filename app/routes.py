@@ -33,6 +33,10 @@ def index():
 
             response = requests.post(url, data=data)
 
-            return CLASS_NAMES[response.json()]
+            idx = response.json()
+
+            breed = CLASS_NAMES[idx]
+
+            return render_template("result.html", idx=idx, breed=breed)
 
     return render_template("index.html")
