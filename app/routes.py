@@ -29,7 +29,7 @@ def index():
 
             data = base64.b64encode(image_bytes).decode("utf-8")
 
-            url = "https://4ftpjydttb.execute-api.us-east-1.amazonaws.com/predict"
+            url = "https://qc0s636pyb.execute-api.us-east-1.amazonaws.com/predict"
 
             response = requests.post(url, data=data)
 
